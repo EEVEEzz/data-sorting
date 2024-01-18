@@ -59,6 +59,7 @@ function App() {
 
   useEffect(() => {
     setOutput(resultArray);
+    $(`.info`).hide()
   }, [input]);
 
   return (
@@ -89,32 +90,34 @@ function App() {
                 </div>
 
                 <div
-                  onLoad={$(`.details${index}`).hide()}
-                  className={`stat details${index}`}
+                  className={`stat details${index} info`}
                 >
                   <div className="stat-title">Devices</div>
                   <div>
                     {i.devices.map((d, index) => (
                       <div key={index} className="mb-5 bg-base-100 stat">
-                        <li className="text-primary font-bold">{d.Device}</li>
+                        <div className="text-accent font-bold">{d.Device}</div>
                         <div>
-                          <div className="mt-1 text-primary">
-                            Affected Files
+                          <div className="mt-1">
+                            <span className=" badge badge-lg badge-outline badge-error">
+                              {d.Affected_files.length} Affected Files
+                            </span>
+                            
                           </div>
                           {d.Affected_files.map((f, index) => (
                             <li key={index}>{f}</li>
                           ))}
                         </div>
                         <div>
-                          <div className="text-primary">Detected By</div>
+                          <div className="text-accent">Detected By</div>
                           <div>{d.Detected_by}</div>
                         </div>
                         <div>
-                          <div className="text-primary">Last_infected</div>
+                          <div className="text-accent">Last_infected</div>
                           <div>{d.Last_infected}</div>
                         </div>
                         <div>
-                          <div className="text-primary">Threat</div>
+                          <div className="text-accent">Threat</div>
                           <div>{d.Threat}</div>
                         </div>
                       </div>

@@ -1,5 +1,6 @@
 import "./App.css";
 import data from "../src/raw data/data.js";
+import $ from "jquery";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -56,8 +57,6 @@ function App() {
     return acc;
   }, []);
 
-  console.log(resultArray);
-
   useEffect(() => {
     setOutput(resultArray);
   }, [input]);
@@ -66,32 +65,44 @@ function App() {
     <div>
       {input ? (
         <>
-          <div>Data Sorting</div>
+          <div className="stat-value text-center mb-2">Threats and Devices</div>
 
-          <div className="text-xs">Data is imported from '/raw data/data.js'</div>
-          <div className="text-xs">Replace the data.js file with new data</div>
+          <div className="text-xs text-center">
+            Data is imported from '/raw data/data.js'
+          </div>
+          <div className="text-xs text-center mb-5">
+            Replace the data.js file with new data
+          </div>
 
           {output?.map((i, index) => (
-            <div className="mb-10 ">
+            <div key={index} className="mb-10 ">
               <div className="">
-                <div className="bg-base-300 pt-10 pl-10 pr-10 pb-2">
+                <div
+                  onClick={() => {
+                    $(`.details${index}`).slideToggle();
+                  }}
+                  className="cursor-pointer bg-base-300 stat company hover:bg-base-200"
+                >
                   <div className="font-bold text-error">
                     {index + 1} - {i.Customer_name}
                   </div>
                 </div>
 
-                <div className="stat">
+                <div
+                  onLoad={$(`.details${index}`).hide()}
+                  className={`stat details${index}`}
+                >
                   <div className="stat-title">Devices</div>
                   <div>
-                    {i.devices.map((d) => (
-                      <div className="mb-5 bg-base-100 stat">
+                    {i.devices.map((d, index) => (
+                      <div key={index} className="mb-5 bg-base-100 stat">
                         <li className="text-primary font-bold">{d.Device}</li>
                         <div>
                           <div className="mt-1 text-primary">
                             Affected Files
                           </div>
-                          {d.Affected_files.map((f) => (
-                            <li>{f}</li>
+                          {d.Affected_files.map((f, index) => (
+                            <li key={index}>{f}</li>
                           ))}
                         </div>
                         <div>

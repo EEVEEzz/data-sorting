@@ -73,7 +73,7 @@ function App() {
     <div className="">
       {output && (
         <>
-          <div className="stat-value text-center mb-2">Threats and Devices</div>
+          <div className="stat-value text-center mb-2">Threats and Devices Updated</div>
 
           <div className="text-xs text-center">
             Data is imported from '/raw data/data.js'
